@@ -1,72 +1,68 @@
 import 'package:flutter/material.dart';
 
+void main() => runApp(const MyApp());
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      home: MainPage(),
+    );
+  }
+}
+
 class MainPage extends StatelessWidget {
-  const MainPage({super.key});
+  const MainPage({Key? key}) : super(key: key);
+
+  final List<Map<String, dynamic>> menuItems = const [
+    {'icon': Icons.report, 'label': '신고하기'},
+    {'icon': Icons.place, 'label': '흡연장 찾기'},
+    {'icon': Icons.access_time, 'label': '금연 효과'},
+    {'icon': Icons.person, 'label': '마이 페이지'},
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {},
-          ),
-        ],
-      ),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              _mainButton(context, '신고하기', () {}),
-              const SizedBox(height: 20),
-              _mainButton(context, '흡연장 찾기', () {}),
-              const SizedBox(height: 20),
-              _mainButton(context, '금연 시간', () {}, subtitle: '1일 10시간 31분 15초'),
-              const SizedBox(height: 20),
-              _mainButton(context, '절약한 금액', () {}, subtitle: '6,700.64₩'),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _mainButton(BuildContext context, String title, VoidCallback onTap,
-      {String? subtitle}) {
-    return Container(
-      width: 250,
-      padding: const EdgeInsets.symmetric(vertical: 20),
-      decoration: BoxDecoration(
-        color: const Color(0xFFDFFFE0),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.black),
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 4,
-            offset: Offset(2, 2),
-          ),
-        ],
-      ),
-      child: InkWell(
-        onTap: onTap,
-        child: Column(
-          children: [
-            Text(
-              title,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-            ),
-            if (subtitle != null) ...[
-              const SizedBox(height: 8),
-              Text(
-                subtitle,
-                style: const TextStyle(color: Colors.blue),
+      appBar: AppBar(title: const Text('CleanZone 홈')),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: GridView.count(
+          crossAxisCount: 2,
+          crossAxisSpacing: 20,
+          mainAxisSpacing: 20,
+          children: menuItems.map((item) {
+            return GestureDetector(
+              onTap: () {
+                print('${item['label']} 클릭됨');
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(color: Colors.grey), // 회색 테두리
+                  borderRadius: BorderRadius.circular(12), // 모서리 둥글게
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      spreadRadius: 1,
+                      blurRadius: 4,
+                      offset: const Offset(2, 2),
+                    )
+                  ],
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(item['icon'], size: 50, color: Colors.blue),
+                    const SizedBox(height: 10),
+                    Text(item['label'], style: const TextStyle(fontSize: 16)),
+                  ],
+                ),
               ),
-            ],
-          ],
+            );
+          }).toList(),
         ),
       ),
     );
