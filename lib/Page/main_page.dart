@@ -28,7 +28,7 @@ class MainPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('CleanZone 홈')),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.fromLTRB(16, 40, 16, 16), // 리스트를 아래로 내림
         child: GridView.count(
           crossAxisCount: 2,
           crossAxisSpacing: 20,
@@ -41,8 +41,11 @@ class MainPage extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  border: Border.all(color: Colors.grey), // 회색 테두리
-                  borderRadius: BorderRadius.circular(12), // 모서리 둥글게
+                  border: Border.all(
+                    color: Colors.grey,
+                    width: 3.0, // 테두리 굵게
+                  ),
+                  borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.05),
