@@ -1,8 +1,8 @@
 // map_page.dart
 import 'package:flutter/material.dart';
 
-class Reportpage extends StatelessWidget {
-  const Reportpage({super.key});
+class Effectpage extends StatelessWidget {
+  const Effectpage({super.key});
 
   @override
   Widget build(BuildContext context) {

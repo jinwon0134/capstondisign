@@ -1,6 +1,20 @@
 import 'dart:async';
+
+import 'package:capston/Page/effect_page.dart';
+import 'package:capston/Page/map_page.dart';
+import 'package:capston/Page/mypage_page.dart';
+import 'package:capston/Page/report_page.dart';
 import 'package:flutter/material.dart';
 import 'package:capston/page/login_page.dart';
+import 'package:capston/Widget/showbanner_widget.dart';
+
+int currentAdIndex = 0;
+final List<String> adImages = [
+  'assets/images/smoke1.png',
+  'assets/images/smoke2.png',
+  'assets/images/smoke3.png',
+];
+bool _showBanner = true;
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -17,13 +31,6 @@ class _MainPageState extends State<MainPage> {
     {'image': 'assets/images/person.png', 'label': '마이 페이지'},
   ];
 
-  final List<String> adImages = [
-    'assets/images/smoke1.png',
-    'assets/images/smoke2.png',
-    'assets/images/smoke3.png',
-  ];
-
-  int currentAdIndex = 0;
   late Timer _adTimer;
 
   @override
@@ -44,9 +51,12 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('회원가입'),
+        title: const Text('메인페이지'),
         centerTitle: true,
         shape: const Border(bottom: BorderSide(color: Colors.black)),
         backgroundColor: Colors.white,
@@ -64,12 +74,12 @@ class _MainPageState extends State<MainPage> {
       ),
       body: Column(
         children: [
-          const SizedBox(height: 70),
+          SizedBox(height: screenHeight * 0.07),
 
-          // ✅ 상단 금연 카드
+          // 상단 카드
           Container(
-            margin: const EdgeInsets.symmetric(horizontal: 20),
-            padding: const EdgeInsets.all(16),
+            margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+            padding: EdgeInsets.all(screenWidth * 0.04),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.grey.shade300),
               borderRadius: BorderRadius.circular(10),
@@ -82,20 +92,22 @@ class _MainPageState extends State<MainPage> {
               },
               children: [
                 TableRow(children: [
-                  const Text('프로필',
+                  Text('프로필',
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: Color(0xFFBFBFBF))),
-                  const SizedBox(),
+                  SizedBox(
+                    height: 30,
+                  ),
                 ]),
                 TableRow(children: [
-                  const Text('금연시간',
+                  Text('금연시간',
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: Color(0xFFBFBFBF))),
-                  const Text('1일 10시간 31분 15초',
+                  Text('1일 10시간 31분 15초',
                       textAlign: TextAlign.right,
                       style: TextStyle(
                           fontSize: 16,
@@ -124,8 +136,8 @@ class _MainPageState extends State<MainPage> {
                         const SizedBox(width: 4),
                         Image.asset(
                           'assets/images/money.png',
-                          width: 35,
-                          height: 35,
+                          width: screenWidth * 0.08,
+                          height: screenWidth * 0.08,
                         ),
                       ],
                     ),
@@ -135,26 +147,49 @@ class _MainPageState extends State<MainPage> {
             ),
           ),
 
-          const SizedBox(height: 70),
+          SizedBox(height: screenHeight * 0.075),
 
-          // ✅ 아래 Grid 메뉴
+          // ✅ 그리드 메뉴
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
               child: GridView.count(
                 crossAxisCount: 2,
-                crossAxisSpacing: 20,
-                mainAxisSpacing: 20,
+                crossAxisSpacing: screenWidth * 0.08,
+                mainAxisSpacing: screenHeight * 0.04,
                 children: menuItems.map((item) {
                   return GestureDetector(
                     onTap: () {
-                      print('${item['label']} 클릭됨');
+                      final label = item['label'];
+
+                      if (label == '흡연장 찾기') {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => const MapPage()),
+                        );
+                      } else if (label == '신고하기') {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => const Reportpage()),
+                        );
+                      } else if (label == '마이 페이지') {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => const Mypagepage()),
+                        );
+                      } else if (label == '금연 효과') {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => const Effectpage()));
+                      }
                     },
                     child: Container(
                       decoration: BoxDecoration(
                         color: Colors.white,
                         border: Border.all(
-                            color: const Color(0xFFEDEDED), width: 20.0),
+                            color: const Color(0xFFEDEDED),
+                            width: screenWidth * 0.03),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black.withOpacity(0.05),
@@ -169,15 +204,15 @@ class _MainPageState extends State<MainPage> {
                         children: [
                           Image.asset(
                             item['image'],
-                            width: 80,
-                            height: 80,
+                            width: screenWidth * 0.15,
+                            height: screenWidth * 0.15,
                             fit: BoxFit.contain,
                           ),
-                          const SizedBox(height: 10),
+                          SizedBox(height: screenHeight * 0.015),
                           Text(
                             item['label'],
-                            style: const TextStyle(
-                              fontSize: 18,
+                            style: TextStyle(
+                              fontSize: screenWidth * 0.045,
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
                             ),
@@ -191,19 +226,17 @@ class _MainPageState extends State<MainPage> {
             ),
           ),
 
-          // ✅ 최하단 광고 배너
-          AspectRatio(
-            aspectRatio: 3 / 1, // 배너 비율
-            child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 800),
-              child: Image.asset(
-                adImages[currentAdIndex],
-                key: ValueKey(adImages[currentAdIndex]),
-                fit: BoxFit.cover,
-                width: double.infinity,
-              ),
+          // ✅ 하단 배너
+
+          if (_showBanner)
+            ShowBannerWidget(
+              imagePath: adImages[currentAdIndex],
+              onClose: () {
+                setState(() {
+                  _showBanner = false;
+                });
+              },
             ),
-          ),
         ],
       ),
     );

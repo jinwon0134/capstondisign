@@ -1,6 +1,4 @@
-import 'package:capston/Page/find_id_page.dart';
 import 'package:capston/Page/find_idpassword_page.dart';
-import 'package:capston/Page/find_password_page.dart';
 import 'package:flutter/material.dart';
 import 'package:capston/Page/main_page.dart';
 import 'package:capston/page/register_page.dart';
