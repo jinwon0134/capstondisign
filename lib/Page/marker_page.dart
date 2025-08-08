@@ -17,9 +17,14 @@
 
 //   // 1. 미리 지정한 흡연 구역 좌표 리스트
 //   final List<LatLng> smokingZones = [
-//     LatLng(36.3375, 127.4530),
-//     LatLng(36.3350, 127.4500),
-//     LatLng(36.3380, 127.4550),
+//     LatLng(36.3369, 127.4604),//혜화
+//     LatLng(36.33614360, 127.45803527),//
+//     LatLng(36.336532, 127.457777),//문학
+//     LatLng(36.335830, 127.458063),//융과
+//     LatLng(36.3370133, 127.458858),//인사관
+//     LatLng(36.3370133, 127.458858),//
+//     LatLng(36.3370133, 127.458858),
+//     LatLng(36.3370133, 127.458858),
 //   ];
 
 //   // 마커 집합
@@ -123,13 +128,13 @@
 //               child: GoogleMap(
 //             // 초기 카메라 위치는 대전대 중심 좌표로 설정
 //             initialCameraPosition: const CameraPosition(
-//               target: LatLng(36.3366, 127.4529), // 대전대 중심 좌표
+//               target: LatLng(36.335668, 127.460049), // 대전대 중심 좌표
 //               zoom: 16,
 //             ),
 //             cameraTargetBounds: CameraTargetBounds(
 //               LatLngBounds(
-//                 southwest: LatLng(36.332, 127.448), // 대전대 남서쪽 끝
-//                 northeast: LatLng(36.342, 127.458), // 대전대 북동쪽 끝
+//                 southwest: LatLng(36.33189, 127.45252), // 대전대 남서쪽 끝
+//                 northeast: LatLng(36.33887, 127.46395), // 대전대 북동쪽 끝
 //               ),
 //             ),
 
